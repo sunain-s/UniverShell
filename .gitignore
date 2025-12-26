@@ -1,0 +1,25 @@
+# Compiled binaries
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.dll
+*.d
+
+# Build directories
+build/
+
+# Editor / IDE files
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs and crash files
+*.log
+core
+core.*
+
+# OS-specific files
+.DS_Store
