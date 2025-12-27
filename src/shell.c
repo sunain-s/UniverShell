@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------
-* File: shell.c
-* Description: Input loop
-* Author: Sunain Syed
+ * File: shell.c
+ * Description: Input loop
+ * Author: Sunain Syed
 -----------------------------------------------------------------------------------------*/
 
 #include <stdio.h>

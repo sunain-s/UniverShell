@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------------------
-* File: main.c
-* Description: Entry point for UniverShell application
-* Author: Sunain Syed
+ * File: main.c
+ * Description: Entry point for UniverShell application
+ * Author: Sunain Syed
 -----------------------------------------------------------------------------------------*/
 
 #include <stdlib.h>
