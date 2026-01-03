@@ -23,3 +23,6 @@ core.*
 
 # OS-specific files
 .DS_Store
+
+# Binaries
+UniverShell
