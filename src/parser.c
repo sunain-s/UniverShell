@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "parser.h"
 
 #define RL_BUFSIZE 1024
 #define TOK_BUFSIZE 64
