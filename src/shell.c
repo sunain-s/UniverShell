@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include "builtins.h"
 #include "parser.h"
 #include "shell.h"
 
