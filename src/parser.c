@@ -8,6 +8,8 @@
 #include <stdlib.h>
 
 #define RL_BUFSIZE 1024
+#define TOK_BUFSIZE 64
+#define TOK_DELIM " \t\r\n\a"
 
 //-----------------------------------------------------------------------------------------
 
@@ -44,4 +46,36 @@ char *shell_read_line() {
             }
         }
     }
+}
+
+char **shell_split_line(char *line) {
+    int bufsize = TOK_BUFSIZE;
+    int pos = 0;
+    char **tokens = malloc(sizeof(char*) * bufsize);
+    char *token;
+
+    if (!tokens) {
+        fprintf(stderr, "UniverShell: allocation error\n");
+        exit(EXIT_FAILURE);
+    }
+
+    token = strtok(line, TOK_DELIM);
+    while (token != NULL) {
+        tokens[pos] = token;
+        pos++;
+
+        // reallocate memory if buffer exceeded
+        if (pos >= bufsize) {
+            bufsize += TOK_BUFSIZE;
+            tokens = realloc(tokens, sizeof(char*) * bufsize);
+            if (!tokens) {
+                fprintf(stderr, "UniverShell: allocation error\n");
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        token = strtok(NULL, TOK_DELIM);
+    }
+    tokens[pos] = NULL;
+    return tokens;
 }
