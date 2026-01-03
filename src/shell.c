@@ -12,7 +12,7 @@
 
 //-----------------------------------------------------------------------------------------
 
-int launch(char **args) {
+int ush_launch(char **args) {
     __pid_t pid, wpid;
     int status;
 
@@ -34,16 +34,16 @@ int launch(char **args) {
     return 1;
 }
 
-void shell_loop() {
+void ush_loop() {
     char *line;
     char **args;
     int status;
 
     do {
         printf("> ");
-        line = shell_read_line();
-        args = shell_split_line(line);
-        status = shell_execute(args);
+        line = ush_read_line();
+        args = ush_split_line(line);
+        status = ush_execute(args);
 
         free(line);
         free(args);

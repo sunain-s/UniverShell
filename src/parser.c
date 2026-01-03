@@ -14,7 +14,7 @@
 
 //-----------------------------------------------------------------------------------------
 
-char *shell_read_line() {
+char *ush_read_line() {
     int bufsize = RL_BUFSIZE;
     int pos = 0;
     char *buffer = malloc(sizeof(char) * bufsize);
@@ -49,7 +49,7 @@ char *shell_read_line() {
     }
 }
 
-char **shell_split_line(char *line) {
+char **ush_split_line(char *line) {
     int bufsize = TOK_BUFSIZE;
     int pos = 0;
     char **tokens = malloc(sizeof(char*) * bufsize);

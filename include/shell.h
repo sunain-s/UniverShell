@@ -7,6 +7,6 @@
 #ifndef UNIVERSHELL_SHELL_H
 #define UNIVERSHELL_SHELL_H
 
-void shell_loop(void);
+void ush_loop(void);
 
 #endif /* UNIVERSHELL_SHELL_H */
