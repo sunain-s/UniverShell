@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 //-----------------------------------------------------------------------------------------
-// Built-in command declarations
+// Built-in command forward declarations
 
 int ush_cd(char **args);
 int ush_help(char **args);
@@ -55,4 +55,8 @@ int ush_help(char **args) {
 
     printf("Use the man command for information on other programs.\n");
     return 1;
+}
+
+int ush_exit(char **args) {
+    return 0;
 }
