@@ -13,7 +13,7 @@
 //-----------------------------------------------------------------------------------------
 
 int ush_launch(char **args) {
-    __pid_t pid, wpid;
+    pid_t pid, wpid;
     int status;
 
     pid = fork();
