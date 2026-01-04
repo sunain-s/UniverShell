@@ -49,7 +49,7 @@ int ush_help(char **args) {
     int i;
     printf("UniverShell: A lightweight cross-platform shell\n");
     printf("Type program names and arguments, and hit enter.\n");
-    printf("The following are commands are built in:\n");
+    printf("The following commands are built in:\n");
 
     for (i = 0; i < ush_num_builtins(); i++) {
         printf("  %s\n", builtin_str[i]);
