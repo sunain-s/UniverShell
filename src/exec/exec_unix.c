@@ -1,3 +1,5 @@
+#ifndef _WIN32
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
@@ -23,3 +25,5 @@ int ush_launch(char **args) {
     }
     return 1;
 }
+
+#endif /* _WIN32 */
