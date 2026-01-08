@@ -26,7 +26,7 @@ ifeq ($(PLATFORM),windows)
 	EXE_SUFFIX := .exe
 else
 	EXEC_SRC := src/exec/exec_unix.c
-	EXE_SUFFIX := 
+	EXE_SUFFIX :=
 endif
 
 # Paths and targets
@@ -46,7 +46,7 @@ SRCS := \
 OBJS := $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 DEPS := $(SRCS:$(SRCDIR)/%.c=$(DEPDIR)/%.d)
 
-.PHONY: all clean run print-platform
+.PHONY: all clean distclean print-platform rebuild run 
 
 all: $(TARGET)
 
@@ -60,7 +60,7 @@ $(TARGET): $(OBJS)
 
 # Compile pattern (with dependency generation)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(dir $@) $(dir $(DEPDIR)/$*.d)  # Ensure obj and dep subdirs exist
+	@mkdir -p $(dir $@) $(dir $(DEPDIR)/$*.d)
 	$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -MF $(DEPDIR)/$*.d -c $< -o $@
 
 # Include dependency files
@@ -70,6 +70,16 @@ run: $(TARGET)
 	@echo "Running $(TARGET)"
 	@./$(TARGET)
 
+# Remove intermediate build files only
 clean:
-	@echo "Cleaning build artifacts"
-	@rm -rf $(OBJDIR) $(DEPDIR) $(BINDIR) $(TARGET)
+	@echo "Cleaning intermediate build artifacts"
+	@rm -rf $(OBJDIR) $(DEPDIR)
+
+# Remove everything built
+distclean: clean
+	@echo "Removing all build outputs"
+	@rm -rf $(BINDIR)
+
+# Full rebuild from scratch
+rebuild: distclean all
+	@echo "Rebuild complete"
