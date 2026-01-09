@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include "exec.h"
 
 int ush_launch(char **args) {
     pid_t pid;

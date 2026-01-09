@@ -5,7 +5,11 @@
 -----------------------------------------------------------------------------------------*/
 
 #include <stdio.h>
-#include <unistd.h>
+#ifdef _WIN32
+    #include <windows.h>
+#else
+    #include <unistd.h>
+#endif /* _WIN32 */
 #include "builtins.h"
 
 //-----------------------------------------------------------------------------------------
@@ -38,9 +42,17 @@ int ush_cd(char **args) {
     if (args[1] == NULL) {
         fprintf(stderr, "UniverShell: expected argument to \"cd\"\n");
     } else {
+
+#ifdef _WIN32
+        if (!SetCurrentDirectoryA(args[1])) {
+            fprintf(stderr, "UniverShell: cd: could not change directory to %s\n", args[1]);
+        }
+#else
         if (chdir(args[1]) != 0) {
             perror("UniverShell");
         }
+#endif /* _WIN32 */
+
     }
     return 1;
 }
