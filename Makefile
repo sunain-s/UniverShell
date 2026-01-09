@@ -56,12 +56,13 @@ print-platform:
 # Link
 $(TARGET): $(OBJS)
 	@mkdir -p $(BINDIR)
-	$(CC) $(OBJS) -o $@
+	@$(CC) $(OBJS) -o $@
+	@echo "Build complete: $(TARGET)"
 
 # Compile pattern (with dependency generation)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@) $(dir $(DEPDIR)/$*.d)
-	$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -MF $(DEPDIR)/$*.d -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -MF $(DEPDIR)/$*.d -c $< -o $@
 
 # Include dependency files
 -include $(DEPS)

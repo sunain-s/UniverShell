@@ -46,6 +46,7 @@ int ush_cd(char **args) {
 }
 
 int ush_help(char **args) {
+    (void)args;
     int i;
     printf("UniverShell: A lightweight cross-platform shell\n");
     printf("Type program names and arguments, and hit enter.\n");
@@ -60,5 +61,6 @@ int ush_help(char **args) {
 }
 
 int ush_exit(char **args) {
+    (void)args;
     return 0;
 }

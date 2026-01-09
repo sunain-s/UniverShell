@@ -1,11 +1,12 @@
 #ifndef _WIN32
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
 
 int ush_launch(char **args) {
-    pid_t pid, wpid;
+    pid_t pid;
     int status;
     pid = fork();
 
@@ -20,7 +21,7 @@ int ush_launch(char **args) {
     } else {
         // Parent process
         do {
-            wpid = waitpid(pid, &status, WUNTRACED);
+            waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
     return 1;

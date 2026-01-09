@@ -10,6 +10,7 @@
 #include "builtins.h"
 #include "parser.h"
 #include "shell.h"
+#include "exec.h"
 
 //-----------------------------------------------------------------------------------------
 
