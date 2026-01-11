@@ -24,9 +24,11 @@ INCLUDES := -Iinclude
 ifeq ($(PLATFORM),windows)
 	EXEC_SRC := src/exec/exec_win.c
 	EXE_SUFFIX := .exe
+	PLATFORM_CFLAGS := -DUSH_PLATFORM_WINDOWS
 else
 	EXEC_SRC := src/exec/exec_unix.c
 	EXE_SUFFIX :=
+	PLATFORM_CFLAGS := -DUSH_PLATFORM_UNIX
 endif
 
 # Paths and targets
@@ -62,7 +64,7 @@ $(TARGET): $(OBJS)
 # Compile pattern (with dependency generation)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@) $(dir $(DEPDIR)/$*.d)
-	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -MF $(DEPDIR)/$*.d -c $< -o $@
+	@$(CC) $(CFLAGS) $(PLATFORM_CFLAGS) $(INCLUDES) -MMD -MP -MF $(DEPDIR)/$*.d -c $< -o $@
 
 # Include dependency files
 -include $(DEPS)

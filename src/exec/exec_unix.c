@@ -1,4 +1,4 @@
-#ifndef _WIN32
+#ifdef USH_PLATFORM_UNIX
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,4 +28,4 @@ int ush_launch(char **args) {
     return 1;
 }
 
-#endif /* _WIN32 */
+#endif /* USH_PLATFORM_UNIX */
