@@ -5,7 +5,11 @@
 -----------------------------------------------------------------------------------------*/
 
 #include <stdio.h>
-#include <unistd.h>
+#ifdef USH_PLATFORM_WINDOWS
+    #include <windows.h>
+#else
+    #include <unistd.h>
+#endif /* USH_PLATFORM_WINDOWS */
 #include "builtins.h"
 
 //-----------------------------------------------------------------------------------------
@@ -38,14 +42,23 @@ int ush_cd(char **args) {
     if (args[1] == NULL) {
         fprintf(stderr, "UniverShell: expected argument to \"cd\"\n");
     } else {
+
+#ifdef USH_PLATFORM_WINDOWS
+        if (!SetCurrentDirectoryA(args[1])) {
+            fprintf(stderr, "UniverShell: cd: could not change directory to %s\n", args[1]);
+        }
+#else
         if (chdir(args[1]) != 0) {
             perror("UniverShell");
         }
+#endif /* USH_PLATFORM_WINDOWS */
+
     }
     return 1;
 }
 
 int ush_help(char **args) {
+    (void)args;
     int i;
     printf("UniverShell: A lightweight cross-platform shell\n");
     printf("Type program names and arguments, and hit enter.\n");
@@ -60,5 +73,6 @@ int ush_help(char **args) {
 }
 
 int ush_exit(char **args) {
+    (void)args;
     return 0;
 }
