@@ -1,18 +1,18 @@
 # UniverShell Makefile
 
-# Detect platform: Windows (OS=Windows_NT) vs Unix (via uname)
-ifeq ($(OS),Windows_NT)
+# Detect platform: treat native Windows as windows, Cygwin/MSYS and Unix-like
+# environments as unix.
+UNAME_S := $(shell uname -s 2>/dev/null)
+ifneq ($(findstring CYGWIN,$(UNAME_S)),)
+	PLATFORM := unix
+else ifneq ($(findstring MSYS,$(UNAME_S)),)
+	PLATFORM := unix
+else ifneq ($(findstring MINGW,$(UNAME_S)),)
+	PLATFORM := windows
+else ifeq ($(OS),Windows_NT)
 	PLATFORM := windows
 else
-	UNAME_S := $(shell uname -s)
-	ifeq ($(UNAME_S),Linux)
-		PLATFORM := unix
-	endif
-	ifeq ($(UNAME_S),Darwin)
-		PLATFORM := unix
-	endif
-	# Fallback
-	PLATFORM ?= unix
+	PLATFORM := unix
 endif
 
 # Compiler and flags
@@ -40,6 +40,7 @@ TARGET := $(BINDIR)/UniverShell$(EXE_SUFFIX)
 
 SRCS := \
 	$(SRCDIR)/builtins.c \
+	$(SRCDIR)/exec/exec.c \
 	$(SRCDIR)/main.c \
 	$(SRCDIR)/parser.c \
 	$(SRCDIR)/shell.c \
