@@ -19,6 +19,10 @@ void ush_loop() {
     do {
         printf("> ");
         line = ush_read_line();
+        if (line == NULL) {
+            break;
+        }
+
         args = ush_split_line(line);
         status = ush_execute(args);
 

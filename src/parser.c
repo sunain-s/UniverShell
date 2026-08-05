@@ -28,25 +28,29 @@ char *ush_read_line() {
 
     while (1) {
         c = getchar();
+
+        if (c == EOF) {
+            free(buffer);
+            return NULL;
+        }
         
         // EOF or newline, end of input and replace with null character
-        if (c == EOF || c == '\n') {
+        if (c == '\n') {
             buffer[pos] = '\0';
             return buffer;
         } else {
+            if (pos + 1 >= bufsize) {
+                bufsize += RL_BUFSIZE;
+                buffer = realloc(buffer, bufsize);
+                if (!buffer) {
+                    fprintf(stderr, "UniverShell: allocation error\n");
+                    exit(EXIT_FAILURE);
+                }
+            }
+
             buffer[pos] = c;
         }
         pos++;
-
-        // reallocate memory if buffer exceeded
-        if (pos >= bufsize) {
-            bufsize += RL_BUFSIZE;
-            buffer = realloc(buffer, bufsize);
-            if (!buffer) {
-                fprintf(stderr, "UniverShell: allocation error\n");
-                exit(EXIT_FAILURE);
-            }
-        }
     }
 }
 
@@ -63,11 +67,7 @@ char **ush_split_line(char *line) {
 
     token = strtok(line, TOK_DELIM);
     while (token != NULL) {
-        tokens[pos] = token;
-        pos++;
-
-        // reallocate memory if buffer exceeded
-        if (pos >= bufsize) {
+        if (pos + 1 >= bufsize) {
             bufsize += TOK_BUFSIZE;
             tokens = realloc(tokens, sizeof(char*) * bufsize);
             if (!tokens) {
@@ -76,8 +76,21 @@ char **ush_split_line(char *line) {
             }
         }
 
+        tokens[pos] = token;
+        pos++;
+
         token = strtok(NULL, TOK_DELIM);
     }
+
+    if (pos >= bufsize) {
+        bufsize += TOK_BUFSIZE;
+        tokens = realloc(tokens, sizeof(char*) * bufsize);
+        if (!tokens) {
+            fprintf(stderr, "UniverShell: allocation error\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+
     tokens[pos] = NULL;
     return tokens;
 }
